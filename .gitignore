@@ -1,0 +1,11 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.idea/.idea.PayCheckCalculator/.idea/.gitignore
+/.idea/.idea.PayCheckCalculator/.idea/discord.xml
+/.idea/.idea.PayCheckCalculator/.idea/encodings.xml
+/.idea/.idea.PayCheckCalculator/.idea/indexLayout.xml
+/.idea/.idea.PayCheckCalculator/.idea/misc.xml
+/.idea/.idea.PayCheckCalculator/.idea/vcs.xml
