@@ -6,4 +6,13 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="EPPlus" Version="5.5.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\MVVM\ViewModels" />
+      <Folder Include="Resources\MVVM\Views" />
+    </ItemGroup>
+
 </Project>

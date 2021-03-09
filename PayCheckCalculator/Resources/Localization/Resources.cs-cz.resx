@@ -1,0 +1,83 @@
+﻿<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="April" xml:space="preserve">
+        <value>Duben</value>
+    </data>
+    <data name="August" xml:space="preserve">
+        <value>Srpen</value>
+    </data>
+    <data name="Calculate" xml:space="preserve">
+        <value>Vypočítat</value>
+    </data>
+    <data name="Day" xml:space="preserve">
+        <value>Den</value>
+    </data>
+    <data name="December" xml:space="preserve">
+        <value>Prosinec</value>
+    </data>
+    <data name="February" xml:space="preserve">
+        <value>Únor</value>
+    </data>
+    <data name="Hours" xml:space="preserve">
+        <value>Hodiny</value>
+    </data>
+    <data name="January" xml:space="preserve">
+        <value>Leden</value>
+    </data>
+    <data name="July" xml:space="preserve">
+        <value>Červenec</value>
+    </data>
+    <data name="June" xml:space="preserve">
+        <value>Červen</value>
+    </data>
+    <data name="March" xml:space="preserve">
+        <value>Březen</value>
+    </data>
+    <data name="May" xml:space="preserve">
+        <value>Květen</value>
+    </data>
+    <data name="Month" xml:space="preserve">
+        <value>Měsíc</value>
+    </data>
+    <data name="November" xml:space="preserve">
+        <value>Listopad</value>
+    </data>
+    <data name="October" xml:space="preserve">
+        <value>Říjen</value>
+    </data>
+    <data name="September" xml:space="preserve">
+        <value>Září</value>
+    </data>
+    <data name="ShiftDay" xml:space="preserve">
+        <value>Denní</value>
+    </data>
+    <data name="ShiftNight" xml:space="preserve">
+        <value>Noční</value>
+    </data>
+    <data name="TimeBegin" xml:space="preserve">
+        <value>Začátek práce</value>
+    </data>
+    <data name="TimeEnd" xml:space="preserve">
+        <value>Konec práce</value>
+    </data>
+    <data name="Total" xml:space="preserve">
+        <value>Celkem</value>
+    </data>
+    <data name="Year" xml:space="preserve">
+        <value>Rok</value>
+    </data>
+    <data name="ShiftType" xml:space="preserve">
+        <value>Druh směny</value>
+    </data>
+</root>
