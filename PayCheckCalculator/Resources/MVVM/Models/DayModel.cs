@@ -12,6 +12,12 @@ namespace PayCheckCalculator.Resources.MVVM.Models
         private DateTime _shiftEnd;
         private List<DateTime> _timeOptions;
         public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public DateTime Day
         {
             get => _day;
@@ -24,6 +30,7 @@ namespace PayCheckCalculator.Resources.MVVM.Models
             set
             {
                 _shiftStart = value;
+                Hours = new DateTime();
                 NotifyPropertyChanged();
             }
         }
@@ -34,21 +41,17 @@ namespace PayCheckCalculator.Resources.MVVM.Models
             set
             {
                 _shiftEnd = value;
-                Hours = _shiftEnd - _shiftStart;
+                Hours = new DateTime();
                 NotifyPropertyChanged();
             }
         }
 
-        public TimeSpan Hours
+        public DateTime Hours
         {
-            get => _shiftEnd - _shiftStart;
-            set
-            {
-                value = _shiftEnd - _shiftStart;
-                NotifyPropertyChanged();
-            }
+            get => _day + (_shiftEnd - _shiftStart);
+            set => NotifyPropertyChanged();
         }
-        
+
         public List<DateTime> TimeOptions
         {
             get => _timeOptions;
@@ -58,11 +61,6 @@ namespace PayCheckCalculator.Resources.MVVM.Models
         public DayModel(DateTime day)
         {
             _day = day;
-        }
-        
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
