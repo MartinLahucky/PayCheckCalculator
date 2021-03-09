@@ -10,7 +10,7 @@ namespace PayCheckCalculator
     public partial class MainWindow : Window
     {
         private readonly ExcelFunctions _excel = new ExcelFunctions();
-        private List<DayModel> data;
+        private List<DayModel> _data;
 
         public MainWindow()
         {
@@ -34,18 +34,32 @@ namespace PayCheckCalculator
             {
                 LoadData();
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         private void LoadData()
         {
             if (YearOptions.SelectedItem.ToString() != null && MonthOptions.SelectedItem.ToString() != null)
             {
-                var year = int.Parse(YearOptions.SelectedItem.ToString() ?? DateTime.Now.Year.ToString());
+                var year = int.Parse(YearOptions.Text);
                 var month = MonthOptions.SelectedIndex + 1;
-                data = _excel.GetData(year, month);
-                DayOfTheMonthList.ItemsSource = data;
+                _data = _excel.GetData(year, month);
+                DayOfTheMonthList.ItemsSource = _data;
             }
+        }
+
+        private void OptionsBegin_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var time = DateTime.Parse(e.AddedItems[0]?.ToString() ?? string.Empty);
+            _data[time.Day - 1].ShiftStart = time;
+        }
+
+        private void OptionsTo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var time = DateTime.Parse(e.AddedItems[0]?.ToString() ?? string.Empty);
+            _data[time.Day - 1].ShiftEnd = time;
         }
     }
 }

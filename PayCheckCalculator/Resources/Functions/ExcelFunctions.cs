@@ -54,7 +54,7 @@ namespace PayCheckCalculator.Resources.Functions
             List<DayModel> list = new List<DayModel>();
             foreach (var day in GetDates(year, month))
             {
-                list.Add(new DayModel(day, GetDates(day)));
+                list.Add(SetDay(new DayModel(day)));
             }
         
             return list;
@@ -67,20 +67,30 @@ namespace PayCheckCalculator.Resources.Functions
                 .ToList(); // Load dates into a list
         }
         
-        private List<DateTime> GetDates(DateTime day)
+        private DayModel SetDay(DayModel day)
         {
             List<DateTime> list = new List<DateTime>();
-        
+            var time = day.Day;
             for (int i = 0; i < 24; i++)
             {
+                if (i == 7)
+                {
+                    day.ShiftStart = time;
+                }
+                else if (i == 17)
+                {
+                    day.ShiftEnd = time;
+                }
+                
                 for (int j = 0; j < 4; j++)
                 {
-                    list.Add(day);
-                    day = day.AddMinutes(15);
+                    list.Add(time);
+                    time = time.AddMinutes(15);
                 }
             }
 
-            return list;
+            day.TimeOptions = list;            
+            return day;
         }
     }
 }

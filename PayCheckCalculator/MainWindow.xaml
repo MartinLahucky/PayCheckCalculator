@@ -54,7 +54,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="{x:Static lang:Resources.Day}"
-                                    DisplayMemberBinding="{Binding Day, StringFormat='{}{0:dd. MM. yyyy}'}" />
+                                    DisplayMemberBinding="{Binding Day, StringFormat={}{0: dd. MM. yyyy}}" />
 
                     <GridViewColumn Width="150" Header="{x:Static lang:Resources.ShiftType}">
                         <GridViewColumn.CellTemplate>
@@ -71,9 +71,10 @@
                     <GridViewColumn Width="150" Header="{x:Static lang:Resources.TimeBegin}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox x:Name="OptionsBegin" SelectedIndex="32"
-                                          ItemsSource="{Binding TimeOptions, StringFormat='{}{0:HH:mm}'}"
-                                          ItemStringFormat="HH:mm" IsEditable="True" />
+                                <ComboBox x:Name="OptionsBegin" SelectedIndex="28"
+                                          ItemsSource="{Binding TimeOptions}"
+                                          ItemStringFormat="HH:mm" IsEditable="False"
+                                          SelectionChanged="OptionsBegin_OnSelectionChanged" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -82,13 +83,14 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox x:Name="OptionsTo" SelectedIndex="68"
-                                          ItemsSource="{Binding TimeOptions, StringFormat='{}{0:HH:mm}'}"
-                                          ItemStringFormat="HH:mm" IsEditable="True" />
+                                          ItemsSource="{Binding TimeOptions}"
+                                          ItemStringFormat="HH:mm" IsEditable="False"
+                                          SelectionChanged="OptionsTo_OnSelectionChanged" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="150" Header="{x:Static lang:Resources.Hours}"
-                                    DisplayMemberBinding="{Binding Hours, StringFormat='{}{0:HH:mm}'}" />
+                                    DisplayMemberBinding="{Binding Hours}" />
                 </GridView>
             </ListView.View>
         </ListView>
