@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using AppLocalization = PayCheckCalculator.Resources.Localization.Resources;
 
 namespace PayCheckCalculator.Resources.MVVM.Models
 {
@@ -10,6 +11,7 @@ namespace PayCheckCalculator.Resources.MVVM.Models
         private DateTime _day;
         private DateTime _shiftStart;
         private DateTime _shiftEnd;
+        private bool _shiftType;
         private List<DateTime> _timeOptions;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,7 +32,7 @@ namespace PayCheckCalculator.Resources.MVVM.Models
             set
             {
                 _shiftStart = value;
-                Hours = new DateTime();
+                Hours = new TimeSpan();
                 NotifyPropertyChanged();
             }
         }
@@ -41,14 +43,24 @@ namespace PayCheckCalculator.Resources.MVVM.Models
             set
             {
                 _shiftEnd = value;
-                Hours = new DateTime();
+                Hours = new TimeSpan();
                 NotifyPropertyChanged();
             }
         }
 
-        public DateTime Hours
+        public bool ShiftType
         {
-            get => _day + (_shiftEnd - _shiftStart);
+            get => _shiftType;
+            set
+            {
+                _shiftType = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public TimeSpan Hours
+        {
+            get => _shiftEnd - _shiftStart;
             set => NotifyPropertyChanged();
         }
 
@@ -61,6 +73,7 @@ namespace PayCheckCalculator.Resources.MVVM.Models
         public DayModel(DateTime day)
         {
             _day = day;
+            _shiftType = true;
         }
     }
 }

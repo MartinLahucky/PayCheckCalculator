@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PayCheckCalculator"
         xmlns:lang="clr-namespace:PayCheckCalculator.Resources.Localization"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -21,14 +21,15 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+        <Border Grid.Column="0" HorizontalAlignment="Center"
                 VerticalAlignment="Stretch" CornerRadius="20">
             <StackPanel Margin="10,0">
                 <Label Content="{x:Static lang:Resources.Year}" />
                 <ComboBox x:Name="YearOptions" SelectionChanged="LoadData" />
             </StackPanel>
         </Border>
-        <Border Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+        
+        <Border Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"
                 VerticalAlignment="Stretch" CornerRadius="20">
             <StackPanel Margin="10,0">
                 <Label Content="{x:Static lang:Resources.Month}" />
@@ -49,17 +50,33 @@
             </StackPanel>
         </Border>
 
-        <ListView x:Name="DayOfTheMonthList" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Margin="0" Padding="-5"
+        <Border Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"
+                VerticalAlignment="Stretch" CornerRadius="20">
+            <StackPanel Margin="10,0">
+                <Label x:Name="ShiftDayWageLabel" />
+                <TextBox x:Name="ShiftDayWage" Tag="150"/>
+            </StackPanel>
+        </Border>
+        
+        <Border Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center"
+                VerticalAlignment="Stretch" CornerRadius="20">
+            <StackPanel Margin="10,0">
+                <Label x:Name="ShiftNightWageLabel" />
+                <TextBox x:Name="ShiftNightWage"  Tag="250"/>
+            </StackPanel>
+        </Border>
+        
+        <ListView x:Name="DayOfTheMonthList" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Margin="0, -130, 0, 0" Padding="-5"
                   SelectionMode="Extended" IsEnabled="True">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="{x:Static lang:Resources.Day}"
                                     DisplayMemberBinding="{Binding Day, StringFormat={}{0: dd. MM. yyyy}}" />
 
-                    <GridViewColumn Width="150" Header="{x:Static lang:Resources.ShiftType}">
+                    <GridViewColumn Width="100" Header="{x:Static lang:Resources.ShiftType}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox>
+                                <ComboBox Tag="{Binding Day}" SelectionChanged="ShiftType_OnSelectionChanged"> 
                                     <ComboBoxItem Content="{x:Static lang:Resources.ShiftDay}"
                                                   IsSelected="True" />
                                     <ComboBoxItem Content="{x:Static lang:Resources.ShiftNight}" />
@@ -68,10 +85,11 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="150" Header="{x:Static lang:Resources.TimeBegin}">
+                    <GridViewColumn Width="70" Header="{x:Static lang:Resources.ShiftStart}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox x:Name="OptionsBegin" SelectedIndex="28"
+                                <!-- <TextBox Width="150" TextChanged="Begin_OnTextChanged"/> -->
+                                <ComboBox Tag="{Binding Day}" SelectedIndex="0"
                                           ItemsSource="{Binding TimeOptions}"
                                           ItemStringFormat="HH:mm" IsEditable="False"
                                           SelectionChanged="OptionsBegin_OnSelectionChanged" />
@@ -79,40 +97,39 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="150" Header="{x:Static lang:Resources.TimeEnd}">
+                    <GridViewColumn Width="70" Header="{x:Static lang:Resources.ShiftEnd}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox x:Name="OptionsTo" SelectedIndex="68"
+                                <ComboBox Tag="{Binding Day}" SelectedIndex="52"
                                           ItemsSource="{Binding TimeOptions}"
                                           ItemStringFormat="HH:mm" IsEditable="False"
                                           SelectionChanged="OptionsTo_OnSelectionChanged" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="150" Header="{x:Static lang:Resources.Hours}"
-                                    DisplayMemberBinding="{Binding Hours, StringFormat='{}{0: HH:mm}'}" />
+                    <GridViewColumn Width="70" Header="{x:Static lang:Resources.Hours}"
+                                    DisplayMemberBinding="{Binding Hours}" />
                 </GridView>
             </ListView.View>
         </ListView>
 
 
-        <!-- <Border Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" Background="Aqua" VerticalAlignment="Stretch" -->
-        <!--         CornerRadius="20"> -->
-        <!--     <Label x:Name="ShiftDay" Margin="10,0" HorizontalAlignment="Center" -->
-        <!--            VerticalAlignment="Center" /> -->
-        <!-- </Border> -->
-        <!-- <Border Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" Background="Aqua" VerticalAlignment="Stretch" -->
-        <!--         CornerRadius="20"> -->
-        <!--     <Label x:Name="ShiftNight" Margin="10,0" HorizontalAlignment="Center" -->
-        <!--            VerticalAlignment="Center" /> -->
-        <!-- </Border> -->
-        <!-- <Border Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" Background="Aqua" VerticalAlignment="Stretch" -->
-        <!--         CornerRadius="20"> -->
-        <!--     <Label x:Name="ShiftTotal" Margin="10,0" HorizontalAlignment="Center" -->
-        <!--            VerticalAlignment="Center" /> -->
-        <!-- </Border> -->
-        <!-- <Button Content="{x:Static lang:Resources.Calculate}" Grid.Column="3" Grid.Row="3" Padding="10" -->
-        <!--         HorizontalAlignment="Center" -->
-        <!--         VerticalAlignment="Center" Click="CalculateButton_OnClick" /> -->
+        <Border Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                CornerRadius="20">
+            <Label x:Name="ShiftDay" Margin="10,0" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+        </Border>
+        <Border Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                CornerRadius="20">
+            <Label x:Name="ShiftNight" Margin="10,0" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+        </Border>
+        <Border Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                CornerRadius="20">
+            <Label x:Name="ShiftTotal" Margin="10,0" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+        </Border>
+        <Button Content="{x:Static lang:Resources.Calculate}" Grid.Column="3" Grid.Row="3" Padding="10"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Click="CalculateButton_OnClick" />
     </Grid>
 </Window>

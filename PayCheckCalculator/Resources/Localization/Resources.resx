@@ -39,10 +39,10 @@
     <data name="Day" xml:space="preserve">
         <value>Day</value>
     </data>
-    <data name="TimeBegin" xml:space="preserve">
+    <data name="ShiftStart" xml:space="preserve">
         <value>Start of work</value>
     </data>
-    <data name="TimeEnd" xml:space="preserve">
+    <data name="ShiftEnd" xml:space="preserve">
         <value>End of work</value>
     </data>
     <data name="Hours" xml:space="preserve">
@@ -86,5 +86,8 @@
     </data>
     <data name="ShiftType" xml:space="preserve">
         <value>Shift type</value>
+    </data>
+    <data name="HourlyWage" xml:space="preserve">
+        <value>Hourly wage</value>
     </data>
 </root>

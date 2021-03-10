@@ -234,18 +234,18 @@ namespace PayCheckCalculator.Resources.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Start of work.
         /// </summary>
-        public static string TimeBegin {
+        public static string ShiftStart {
             get {
-                return ResourceManager.GetString("TimeBegin", resourceCulture);
+                return ResourceManager.GetString("ShiftStart", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to End of work.
         /// </summary>
-        public static string TimeEnd {
+        public static string ShiftEnd {
             get {
-                return ResourceManager.GetString("TimeEnd", resourceCulture);
+                return ResourceManager.GetString("ShiftEnd", resourceCulture);
             }
         }
         
@@ -264,6 +264,15 @@ namespace PayCheckCalculator.Resources.Localization {
         public static string Year {
             get {
                 return ResourceManager.GetString("Year", resourceCulture);
+            }
+        }       
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HourlyWage.
+        /// </summary>
+        public static string HourlyWage {
+            get {
+                return ResourceManager.GetString("HourlyWage", resourceCulture);
             }
         }
     }

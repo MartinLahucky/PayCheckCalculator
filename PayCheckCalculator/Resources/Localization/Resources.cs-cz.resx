@@ -65,10 +65,10 @@
     <data name="ShiftNight" xml:space="preserve">
         <value>Noční</value>
     </data>
-    <data name="TimeBegin" xml:space="preserve">
+    <data name="ShiftStart" xml:space="preserve">
         <value>Začátek práce</value>
     </data>
-    <data name="TimeEnd" xml:space="preserve">
+    <data name="ShiftEnd" xml:space="preserve">
         <value>Konec práce</value>
     </data>
     <data name="Total" xml:space="preserve">
@@ -79,5 +79,8 @@
     </data>
     <data name="ShiftType" xml:space="preserve">
         <value>Druh směny</value>
+    </data>
+    <data name="HourlyWage" xml:space="preserve">
+        <value>Hodinová mzda</value>
     </data>
 </root>
