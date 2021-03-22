@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,23 +63,17 @@ namespace PayCheckCalculator.Resources.Functions
         private List<ExcelModel> FormatData(List<DayModel> data)
         {
             var format = new List<ExcelModel>();
-            string shiftType = AppLocalization.ShiftDay;
             TimeSpan totalHours = new();
 
             foreach (var day in data)
             {
-                if (!day.ShiftType)
-                {
-                    shiftType = AppLocalization.ShiftNight;
-                }
-
                 totalHours += day.Hours;
 
                 format.Add(new ExcelModel(day.Day.ToString("dd. MM. yyyy"),
                     day.ShiftStart.ToString("HH:mm"),
                     day.ShiftEnd.ToString("HH:mm"),
                     day.Hours.TotalHours,
-                    shiftType));
+                    day.ShiftType));
             }
 
             format.Add(new ExcelModel(string.Empty, string.Empty, string.Empty, totalHours.TotalHours, string.Empty));
@@ -89,10 +82,34 @@ namespace PayCheckCalculator.Resources.Functions
 
         private FileInfo CreatePath(string fileName)
         {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            return new($@"{desktopPath}\{fileName}.xlsx");
+            var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            return new FileInfo($@"{desktopPath}\{fileName}.xlsx");
         }
 
+        public async Task<List<DayModel>> LoadDataFromExcel(FileInfo file)
+        {
+            // This is a free open source project 
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var loadedData = new List<DayModel>();
+            using var package = new ExcelPackage(file);
+            await package.LoadAsync(file);
+            var ws = package.Workbook.Worksheets[0];
+            int row = 2, col = 1;
+
+            while (string.IsNullOrWhiteSpace(ws.Cells[row, col].Value?.ToString()) == false)
+            {
+                var day = new DayModel(
+                    DateTime.Parse(ws.Cells[row, col].Value.ToString()!),
+                    DateTime.Parse(ws.Cells[row, col + 1].Value.ToString()!),
+                    DateTime.Parse(ws.Cells[row, col + 2].Value.ToString()!),
+                    ws.Cells[row, col + 4].Value.ToString());
+                SetDay(day);
+                loadedData.Add(day);
+                row++;
+            }
+
+            return loadedData;
+        }
 
         private void DeleteIfExists(FileInfo file)
         {
@@ -101,11 +118,8 @@ namespace PayCheckCalculator.Resources.Functions
 
         public List<DayModel> GetData(int year, int month)
         {
-            List<DayModel> list = new List<DayModel>();
-            foreach (var day in GetDates(year, month))
-            {
-                list.Add(SetDay(new DayModel(day)));
-            }
+            var list = new List<DayModel>();
+            foreach (var day in GetDates(year, month)) list.Add(SetDay(new DayModel(day)));
 
             return list;
         }
@@ -120,20 +134,15 @@ namespace PayCheckCalculator.Resources.Functions
         // TODO REWORK 
         private DayModel SetDay(DayModel day)
         {
-            List<DateTime> list = new List<DateTime>();
+            var list = new List<DateTime>();
             var time = day.Day;
-            for (int i = 0; i < 48; i++)
+            for (var i = 0; i < 48; i++)
             {
                 if (i == 0)
-                {
                     day.ShiftStart = time;
-                }
-                else if (i == 13)
-                {
-                    day.ShiftEnd = time;
-                }
+                else if (i == 13) day.ShiftEnd = time;
 
-                for (int j = 0; j < 4; j++)
+                for (var j = 0; j < 4; j++)
                 {
                     list.Add(time);
                     time = time.AddMinutes(15);

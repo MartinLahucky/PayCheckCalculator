@@ -3,10 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:PayCheckCalculator"
         xmlns:lang="clr-namespace:PayCheckCalculator.Resources.Localization"
-        mc:Ignorable="d"
->
+        mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -28,7 +26,7 @@
                 <ComboBox x:Name="YearOptions" SelectionChanged="LoadData" />
             </StackPanel>
         </Border>
-        
+
         <Border Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"
                 VerticalAlignment="Stretch" CornerRadius="20">
             <StackPanel Margin="10,0">
@@ -54,19 +52,20 @@
                 VerticalAlignment="Stretch" CornerRadius="20">
             <StackPanel Margin="10,0">
                 <Label x:Name="ShiftDayWageLabel" />
-                <TextBox x:Name="ShiftDayWage" Tag="150"/>
+                <TextBox x:Name="ShiftDayWage" Tag="150" />
             </StackPanel>
         </Border>
-        
+
         <Border Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center"
                 VerticalAlignment="Stretch" CornerRadius="20">
             <StackPanel Margin="10,0">
                 <Label x:Name="ShiftNightWageLabel" />
-                <TextBox x:Name="ShiftNightWage"  Tag="250"/>
+                <TextBox x:Name="ShiftNightWage" Tag="250" />
             </StackPanel>
         </Border>
-        
-        <ListView x:Name="DayOfTheMonthList" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Margin="0, -130, 0, 0" Padding="-5"
+
+        <ListView x:Name="DayOfTheMonthList" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Margin="0, -130, 0, 0"
+                  Padding="-5"
                   SelectionMode="Extended" IsEnabled="True">
             <ListView.View>
                 <GridView>
@@ -76,7 +75,7 @@
                     <GridViewColumn Width="100" Header="{x:Static lang:Resources.ShiftType}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox Tag="{Binding Day}" SelectionChanged="ShiftType_OnSelectionChanged"> 
+                                <ComboBox Tag="{Binding Day}" SelectionChanged="ShiftType_OnSelectionChanged">
                                     <ComboBoxItem Content="{x:Static lang:Resources.ShiftDay}"
                                                   IsSelected="True" />
                                     <ComboBoxItem Content="{x:Static lang:Resources.ShiftNight}" />
@@ -131,5 +130,9 @@
         </Border>
         <Button Content="{x:Static lang:Resources.Calculate}" Grid.Column="3" Grid.Row="3" Padding="10"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Click="CalculateButton_OnClick" />
+
+        <Button Content="{x:Static lang:Resources.LoadData}" Grid.Column="3" Grid.Row="3" Margin="-300, 0,0,0"
+                Padding="10"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Click="LoadButton_OnClick" Visibility="Hidden" />
     </Grid>
 </Window>

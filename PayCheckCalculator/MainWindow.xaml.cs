@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Win32;
 using PayCheckCalculator.Resources.Functions;
 using PayCheckCalculator.Resources.MVVM.Models;
 using AppLocalization = PayCheckCalculator.Resources.Localization.Resources;
@@ -11,7 +13,7 @@ namespace PayCheckCalculator
 {
     public partial class MainWindow : Window
     {
-        private readonly ExcelFunctions _excel = new ExcelFunctions();
+        private readonly ExcelFunctions _excel = new();
         private List<DayModel> _data;
 
         public MainWindow()
@@ -22,10 +24,7 @@ namespace PayCheckCalculator
 
             var currentYear = int.Parse(DateTime.Now.Year.ToString());
 
-            for (int i = 50; i > -50; i--)
-            {
-                YearOptions.Items.Add((currentYear + i).ToString());
-            }
+            for (var i = 50; i > -50; i--) YearOptions.Items.Add((currentYear + i).ToString());
 
             YearOptions.SelectedIndex = YearOptions.Items.IndexOf(DateTime.Now.Year.ToString());
             MonthOptions.SelectedIndex = DateTime.Now.Month - 1;
@@ -40,6 +39,7 @@ namespace PayCheckCalculator
             }
             catch
             {
+                // ignored
             }
         }
 
@@ -56,14 +56,14 @@ namespace PayCheckCalculator
 
         private void OptionsBegin_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox box = (ComboBox) sender;
+            var box = (ComboBox) sender;
             var id = DateTime.Parse(box.Tag.ToString() ?? string.Empty);
             _data[id.Day - 1].ShiftStart = DateTime.Parse(e.AddedItems[0]?.ToString() ?? string.Empty);
         }
 
         private void OptionsTo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox box = (ComboBox) sender;
+            var box = (ComboBox) sender;
             var id = DateTime.Parse(box.Tag.ToString() ?? string.Empty);
             _data[id.Day - 1].ShiftEnd = DateTime.Parse(e.AddedItems[0]?.ToString() ?? string.Empty);
         }
@@ -71,18 +71,14 @@ namespace PayCheckCalculator
 
         private void ShiftType_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox box = (ComboBox) sender;
+            var box = (ComboBox) sender;
             if (box != null)
             {
                 var time = DateTime.Parse(box.Tag.ToString() ?? string.Empty);
                 if (box.Text == AppLocalization.ShiftDay)
-                {
-                    _data[time.Day - 1].ShiftType = false;
-                }
+                    _data[time.Day - 1].ShiftType = AppLocalization.ShiftNight;
                 else if (box.Text == AppLocalization.ShiftNight)
-                {
-                    _data[time.Day - 1].ShiftType = true;
-                }
+                    _data[time.Day - 1].ShiftType = AppLocalization.ShiftDay;
             }
         }
 
@@ -118,25 +114,43 @@ namespace PayCheckCalculator
             }
 
             foreach (var day in _data)
-            {
-                if (!day.ShiftType)
-                {
+                if (day.ShiftType != AppLocalization.ShiftDay)
                     shiftNight += day.Hours;
-                }
                 else
-                {
                     shiftDay += day.Hours;
-                }
-            }
             dayWage = (float) shiftDay.TotalHours * dayWage;
             nightWage = (float) shiftNight.TotalHours * nightWage;
-            float total = dayWage + nightWage; 
-            ShiftDay.Content = $"{AppLocalization.ShiftDay}: {shiftDay.TotalHours} {AppLocalization.Hours} -> {dayWage} $";
+            var total = dayWage + nightWage;
+            ShiftDay.Content =
+                $"{AppLocalization.ShiftDay}: {shiftDay.TotalHours} {AppLocalization.Hours} -> {dayWage} $";
             ShiftNight.Content =
                 $"{AppLocalization.ShiftNight}: {shiftNight.TotalHours} {AppLocalization.Hours} -> {nightWage} $";
             ShiftTotal.Content =
                 $"{AppLocalization.Total}: {shiftDay.TotalHours + shiftNight.TotalHours} {AppLocalization.Hours} -> {total} $";
             await _excel.SaveExcelFileNoCopy(_data, $"{MonthOptions.Text}_{YearOptions.Text}");
+        }
+
+        private async void LoadButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var fileName = new FileInfo(GetFile());
+            var data = await _excel.LoadDataFromExcel(fileName);
+            YearOptions.SelectedIndex = YearOptions.Items.IndexOf(data[0].Day.Year.ToString());
+            MonthOptions.SelectedIndex = data[0].Day.Month - 1;
+            DayOfTheMonthList.ItemsSource = data;
+        }
+
+        private string GetFile()
+        {
+            var findFile = new OpenFileDialog
+            {
+                Title = AppLocalization.FindAFile,
+                Filter = $"{AppLocalization.ExcelDocument} (*.xlsx) | *.xlsx",
+                FileName = " "
+            };
+
+            if (findFile.ShowDialog() == true) return findFile.FileName;
+
+            return GetFile();
         }
     }
 }

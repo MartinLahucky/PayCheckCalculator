@@ -274,6 +274,34 @@ namespace PayCheckCalculator.Resources.Localization {
             get {
                 return ResourceManager.GetString("HourlyWage", resourceCulture);
             }
+        }        
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LoadData.
+        /// </summary>
+        public static string LoadData {
+            get {
+                return ResourceManager.GetString("LoadData", resourceCulture);
+            }
         }
+                
+        /// <summary>
+        ///   Looks up a localized string similar to ExcelDocument.
+        /// </summary>
+        public static string ExcelDocument {
+            get {
+                return ResourceManager.GetString("ExcelDocument", resourceCulture);
+            }
+        }
+                
+        /// <summary>
+        ///   Looks up a localized string similar to FindAFile.
+        /// </summary>
+        public static string FindAFile {
+            get {
+                return ResourceManager.GetString("FindAFile", resourceCulture);
+            }
+        }
+        
     }
 }

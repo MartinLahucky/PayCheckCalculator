@@ -90,4 +90,13 @@
     <data name="HourlyWage" xml:space="preserve">
         <value>Hourly wage</value>
     </data>
+    <data name="LoadData" xml:space="preserve">
+        <value>Load data</value>
+    </data>
+    <data name="FindAFile" xml:space="preserve">
+        <value>Find a file</value>
+    </data>
+    <data name="ExcelDocument" xml:space="preserve">
+        <value>Excel Document</value>
+    </data>
 </root>

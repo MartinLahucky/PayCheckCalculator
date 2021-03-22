@@ -8,23 +8,25 @@ namespace PayCheckCalculator.Resources.MVVM.Models
 {
     public class DayModel : INotifyPropertyChanged
     {
-        private DateTime _day;
-        private DateTime _shiftStart;
         private DateTime _shiftEnd;
-        private bool _shiftType;
-        private List<DateTime> _timeOptions;
-        public event PropertyChangedEventHandler PropertyChanged;
+        private DateTime _shiftStart;
+        private string _shiftType;
 
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        public DayModel(DateTime day)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Day = day;
+            _shiftType = AppLocalization.ShiftDay;
         }
 
-        public DateTime Day
+        public DayModel(DateTime day, DateTime shiftStart, DateTime shiftEnd, string shiftType)
         {
-            get => _day;
-            set => _day = value;
+            _shiftEnd = shiftEnd;
+            _shiftStart = shiftStart;
+            _shiftType = shiftType;
+            Day = day;
         }
+
+        public DateTime Day { get; set; }
 
         public DateTime ShiftStart
         {
@@ -48,7 +50,7 @@ namespace PayCheckCalculator.Resources.MVVM.Models
             }
         }
 
-        public bool ShiftType
+        public string ShiftType
         {
             get => _shiftType;
             set
@@ -64,16 +66,13 @@ namespace PayCheckCalculator.Resources.MVVM.Models
             set => NotifyPropertyChanged();
         }
 
-        public List<DateTime> TimeOptions
-        {
-            get => _timeOptions;
-            set => _timeOptions = value;
-        }
+        public List<DateTime> TimeOptions { get; set; }
 
-        public DayModel(DateTime day)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            _day = day;
-            _shiftType = true;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

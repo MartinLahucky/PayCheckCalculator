@@ -83,4 +83,13 @@
     <data name="HourlyWage" xml:space="preserve">
         <value>Hodinová mzda</value>
     </data>
+    <data name="LoadData" xml:space="preserve">
+        <value>Načíst data</value>
+    </data>
+    <data name="FindAFile" xml:space="preserve">
+        <value>Najít soubor</value>
+    </data>
+    <data name="ExcelDocument" xml:space="preserve">
+        <value>Excelovský soubor</value>
+    </data>
 </root>
