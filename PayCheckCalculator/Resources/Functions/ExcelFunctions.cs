@@ -120,7 +120,6 @@ namespace PayCheckCalculator.Resources.Functions
         {
             var list = new List<DayModel>();
             foreach (var day in GetDates(year, month)) list.Add(SetDay(new DayModel(day)));
-
             return list;
         }
 
@@ -138,8 +137,7 @@ namespace PayCheckCalculator.Resources.Functions
             var time = day.Day;
             for (var i = 0; i < 48; i++)
             {
-                if (i == 0)
-                    day.ShiftStart = time;
+                if (i == 0) day.ShiftStart = time;
                 else if (i == 13) day.ShiftEnd = time;
 
                 for (var j = 0; j < 4; j++)

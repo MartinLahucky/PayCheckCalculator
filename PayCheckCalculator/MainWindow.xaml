@@ -52,7 +52,7 @@
                 VerticalAlignment="Stretch" CornerRadius="20">
             <StackPanel Margin="10,0">
                 <Label x:Name="ShiftDayWageLabel" />
-                <TextBox x:Name="ShiftDayWage" Tag="150" />
+                <TextBox x:Name="ShiftDayWage" Tag="160" />
             </StackPanel>
         </Border>
 
@@ -60,13 +60,12 @@
                 VerticalAlignment="Stretch" CornerRadius="20">
             <StackPanel Margin="10,0">
                 <Label x:Name="ShiftNightWageLabel" />
-                <TextBox x:Name="ShiftNightWage" Tag="250" />
+                <TextBox x:Name="ShiftNightWage" Tag="180" />
             </StackPanel>
         </Border>
 
         <ListView x:Name="DayOfTheMonthList" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Margin="0, -130, 0, 0"
-                  Padding="-5"
-                  SelectionMode="Extended" IsEnabled="True">
+                  Padding="-5" SelectionMode="Extended" IsEnabled="True">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="{x:Static lang:Resources.Day}"
@@ -76,9 +75,9 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox Tag="{Binding Day}" SelectionChanged="ShiftType_OnSelectionChanged">
-                                    <ComboBoxItem Content="{x:Static lang:Resources.ShiftDay}"
-                                                  IsSelected="True" />
+                                    <ComboBoxItem Content="{x:Static lang:Resources.ShiftDay}" IsSelected="True" />
                                     <ComboBoxItem Content="{x:Static lang:Resources.ShiftNight}" />
+                                    <ComboBoxItem Content="{x:Static lang:Resources.FreeDay}" />
                                 </ComboBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

@@ -72,13 +72,20 @@ namespace PayCheckCalculator
         private void ShiftType_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var box = (ComboBox) sender;
-            if (box != null)
+            var content = (ComboBoxItem) e.AddedItems[0];
+            if (box != null && content != null)
             {
                 var time = DateTime.Parse(box.Tag.ToString() ?? string.Empty);
-                if (box.Text == AppLocalization.ShiftDay)
+                if (content.Content.ToString() == AppLocalization.ShiftDay)
                     _data[time.Day - 1].ShiftType = AppLocalization.ShiftNight;
-                else if (box.Text == AppLocalization.ShiftNight)
+                else if (content.Content.ToString() == AppLocalization.ShiftNight)
                     _data[time.Day - 1].ShiftType = AppLocalization.ShiftDay;
+                else if (content.Content.ToString() == AppLocalization.FreeDay)
+                {
+                    _data[time.Day - 1].ShiftType = AppLocalization.FreeDay;
+                    _data[time.Day - 1].ShiftStart = _data[time.Day - 1].TimeOptions[0];
+                    _data[time.Day - 1].ShiftEnd = _data[time.Day - 1].TimeOptions[0];
+                }
             }
         }
 
@@ -90,7 +97,7 @@ namespace PayCheckCalculator
             float dayWage, nightWage;
             TimeSpan shiftDay = new(), shiftNight = new();
 
-            switch (Regex.IsMatch(ShiftDayWage.Text, "[^0-9]+"), Regex.IsMatch(ShiftNightWage.Text, "[^0-9]+"))
+            switch (!String.IsNullOrEmpty(ShiftDayWage.Text), !String.IsNullOrEmpty(ShiftNightWage.Text))
             {
                 case (true, true):
                     dayWage = float.Parse(ShiftDayWage.Text);

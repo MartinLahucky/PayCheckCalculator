@@ -303,5 +303,13 @@ namespace PayCheckCalculator.Resources.Localization {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to FreeDay.
+        /// </summary>
+        public static string FreeDay {
+            get {
+                return ResourceManager.GetString("FreeDay", resourceCulture);
+            }
+        }
     }
 }

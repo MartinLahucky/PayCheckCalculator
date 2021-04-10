@@ -92,4 +92,7 @@
     <data name="ExcelDocument" xml:space="preserve">
         <value>Excelovský soubor</value>
     </data>
+    <data name="FreeDay" xml:space="preserve">
+        <value>Dovolená</value>
+    </data>
 </root>

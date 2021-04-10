@@ -99,4 +99,7 @@
     <data name="ExcelDocument" xml:space="preserve">
         <value>Excel Document</value>
     </data>
+    <data name="FreeDay" xml:space="preserve">
+        <value>Holiday</value>
+    </data>
 </root>
