@@ -87,7 +87,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <!-- <TextBox Width="150" TextChanged="Begin_OnTextChanged"/> -->
-                                <ComboBox Tag="{Binding Day}" SelectedIndex="0"
+                                <ComboBox Tag="{Binding Day}" SelectedItem="{Binding ShiftStart}"
                                           ItemsSource="{Binding TimeOptions}"
                                           ItemStringFormat="HH:mm" IsEditable="False"
                                           SelectionChanged="OptionsBegin_OnSelectionChanged" />
@@ -98,7 +98,7 @@
                     <GridViewColumn Width="70" Header="{x:Static lang:Resources.ShiftEnd}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox Tag="{Binding Day}" SelectedIndex="52"
+                                <ComboBox Name="ShiftEnd" Tag="{Binding Day}" SelectedItem="{Binding ShiftEnd}"
                                           ItemsSource="{Binding TimeOptions}"
                                           ItemStringFormat="HH:mm" IsEditable="False"
                                           SelectionChanged="OptionsTo_OnSelectionChanged" />

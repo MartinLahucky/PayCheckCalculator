@@ -77,9 +77,17 @@ namespace PayCheckCalculator
             {
                 var time = DateTime.Parse(box.Tag.ToString() ?? string.Empty);
                 if (content.Content.ToString() == AppLocalization.ShiftDay)
-                    _data[time.Day - 1].ShiftType = AppLocalization.ShiftNight;
-                else if (content.Content.ToString() == AppLocalization.ShiftNight)
+                {
                     _data[time.Day - 1].ShiftType = AppLocalization.ShiftDay;
+                    _data[time.Day - 1].ShiftStart = _data[time.Day - 1].TimeOptions[28];
+                    _data[time.Day - 1].ShiftEnd = _data[time.Day - 1].TimeOptions[68];
+                }
+                else if (content.Content.ToString() == AppLocalization.ShiftNight)
+                {
+                    _data[time.Day - 1].ShiftType = AppLocalization.ShiftNight;
+                    _data[time.Day - 1].ShiftStart = _data[time.Day - 1].TimeOptions[80];
+                    _data[time.Day - 1].ShiftEnd = _data[time.Day - 1].TimeOptions[120];
+                }
                 else if (content.Content.ToString() == AppLocalization.FreeDay)
                 {
                     _data[time.Day - 1].ShiftType = AppLocalization.FreeDay;
