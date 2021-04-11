@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
@@ -67,8 +66,7 @@ namespace PayCheckCalculator
             var id = DateTime.Parse(box.Tag.ToString() ?? string.Empty);
             _data[id.Day - 1].ShiftEnd = DateTime.Parse(e.AddedItems[0]?.ToString() ?? string.Empty);
         }
-
-
+        
         private void ShiftType_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var box = (ComboBox) sender;
