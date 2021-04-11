@@ -66,7 +66,7 @@ namespace PayCheckCalculator
             var id = DateTime.Parse(box.Tag.ToString() ?? string.Empty);
             _data[id.Day - 1].ShiftEnd = DateTime.Parse(e.AddedItems[0]?.ToString() ?? string.Empty);
         }
-        
+
         private void ShiftType_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var box = (ComboBox) sender;
@@ -127,10 +127,10 @@ namespace PayCheckCalculator
             }
 
             foreach (var day in _data)
-                if (day.ShiftType != AppLocalization.ShiftDay)
-                    shiftNight += day.Hours;
-                else
+                if (day.ShiftType == AppLocalization.ShiftDay)
                     shiftDay += day.Hours;
+                else if (day.ShiftType == AppLocalization.ShiftNight)
+                    shiftNight += day.Hours;
             dayWage = (float) shiftDay.TotalHours * dayWage;
             nightWage = (float) shiftNight.TotalHours * nightWage;
             var total = dayWage + nightWage;
@@ -140,7 +140,8 @@ namespace PayCheckCalculator
                 $"{AppLocalization.ShiftNight}: {shiftNight.TotalHours} {AppLocalization.Hours} -> {nightWage} $";
             ShiftTotal.Content =
                 $"{AppLocalization.Total}: {shiftDay.TotalHours + shiftNight.TotalHours} {AppLocalization.Hours} -> {total} $";
-            await _excel.SaveExcelFileNoCopy(_data, $"{MonthOptions.Text}_{YearOptions.Text}");
+            await _excel.SaveExcelFileNoCopy(_data, $"{MonthOptions.Text}_{YearOptions.Text}",
+                ShiftDay.Content.ToString(), ShiftNight.Content.ToString(), ShiftTotal.Content.ToString());
         }
 
         private async void LoadButton_OnClick(object sender, RoutedEventArgs e)
@@ -162,7 +163,6 @@ namespace PayCheckCalculator
             };
 
             if (findFile.ShowDialog() == true) return findFile.FileName;
-
             return GetFile();
         }
     }

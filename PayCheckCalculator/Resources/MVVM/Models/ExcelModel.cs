@@ -8,10 +8,10 @@ namespace PayCheckCalculator.Resources.MVVM.Models
         private string _day;
         private string _shiftStart;
         private string _shiftEnd;
-        private double _hours;
+        private double? _hours;
         private string _shiftType;
         
-        public ExcelModel(string day, string shiftStart, string shiftEnd, double hours, string shiftType)
+        public ExcelModel(string day, string shiftStart, string shiftEnd, double? hours, string shiftType)
         {
             _day = day;
             _shiftStart = shiftStart;
@@ -50,7 +50,7 @@ namespace PayCheckCalculator.Resources.MVVM.Models
             }
         }
 
-        public double Hours
+        public double? Hours
         {
             get => _hours;
             set

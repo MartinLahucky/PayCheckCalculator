@@ -27,7 +27,8 @@ namespace PayCheckCalculator.Resources.Functions
             await package.SaveAsync();
         }
 
-        public async Task SaveExcelFileNoCopy(List<DayModel> data, string fileName)
+        public async Task SaveExcelFileNoCopy(List<DayModel> data, string fileName, string shiftDayHours,
+            string shiftNightHours, string shiftTotalHours)
         {
             // This is a free open source project 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -42,7 +43,7 @@ namespace PayCheckCalculator.Resources.Functions
             ws.Cells["C1"].Value = AppLocalization.ShiftEnd;
             ws.Cells["D1"].Value = AppLocalization.Hours;
             ws.Cells["E1"].Value = AppLocalization.ShiftType;
-            var cellRange = ws.Cells["A2"].LoadFromCollection(FormatData(data));
+            var cellRange = ws.Cells["A2"].LoadFromCollection(FormatData(data, shiftDayHours, shiftNightHours, shiftTotalHours));
             cellRange.AutoFitColumns();
             ws.Cells["B1:C1"].AutoFitColumns();
             await package.SaveAsync();
@@ -60,15 +61,13 @@ namespace PayCheckCalculator.Resources.Functions
             return file;
         }
 
-        private List<ExcelModel> FormatData(List<DayModel> data)
+        private List<ExcelModel> FormatData(List<DayModel> data, string shiftDayHours, string shiftNightHours,
+            string shiftTotalHours)
         {
             var format = new List<ExcelModel>();
-            TimeSpan totalHours = new();
 
             foreach (var day in data)
             {
-                totalHours += day.Hours;
-
                 format.Add(new ExcelModel(day.Day.ToString("dd. MM. yyyy"),
                     day.ShiftStart.ToString("HH:mm"),
                     day.ShiftEnd.ToString("HH:mm"),
@@ -76,7 +75,7 @@ namespace PayCheckCalculator.Resources.Functions
                     day.ShiftType));
             }
 
-            format.Add(new ExcelModel(string.Empty, string.Empty, string.Empty, totalHours.TotalHours, string.Empty));
+            format.Add(new ExcelModel(shiftDayHours, string.Empty, shiftNightHours, null, shiftTotalHours));
             return format;
         }
 
