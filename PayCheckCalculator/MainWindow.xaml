@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:lang="clr-namespace:PayCheckCalculator.Resources.Localization"
+        xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
         mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -69,7 +70,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150" Header="{x:Static lang:Resources.Day}"
-                                    DisplayMemberBinding="{Binding Day, StringFormat={}{0: dd. MM. yyyy}}" />
+                                    DisplayMemberBinding="{Binding Day, StringFormat={}{0: dd. MM. yyyy dddd}, ConverterCulture='{x:Static glob:CultureInfo.CurrentCulture}'}" />
 
                     <GridViewColumn Width="100" Header="{x:Static lang:Resources.ShiftType}">
                         <GridViewColumn.CellTemplate>

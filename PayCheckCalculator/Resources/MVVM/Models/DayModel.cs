@@ -26,6 +26,13 @@ namespace PayCheckCalculator.Resources.MVVM.Models
             Day = day;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        
         public DateTime Day { get; set; }
 
         public DateTime ShiftStart
@@ -67,12 +74,5 @@ namespace PayCheckCalculator.Resources.MVVM.Models
         }
 
         public List<DateTime> TimeOptions { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
