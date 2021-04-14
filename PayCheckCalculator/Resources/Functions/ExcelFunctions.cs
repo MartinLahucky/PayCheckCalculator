@@ -43,7 +43,8 @@ namespace PayCheckCalculator.Resources.Functions
             ws.Cells["C1"].Value = AppLocalization.ShiftEnd;
             ws.Cells["D1"].Value = AppLocalization.Hours;
             ws.Cells["E1"].Value = AppLocalization.ShiftType;
-            var cellRange = ws.Cells["A2"].LoadFromCollection(FormatData(data, shiftDayHours, shiftNightHours, shiftTotalHours));
+            var cellRange = ws.Cells["A2"]
+                .LoadFromCollection(FormatData(data, shiftDayHours, shiftNightHours, shiftTotalHours));
             cellRange.AutoFitColumns();
             ws.Cells["B1:C1"].AutoFitColumns();
             await package.SaveAsync();
@@ -64,16 +65,10 @@ namespace PayCheckCalculator.Resources.Functions
         private List<ExcelModel> FormatData(List<DayModel> data, string shiftDayHours, string shiftNightHours,
             string shiftTotalHours)
         {
-            var format = new List<ExcelModel>();
-
-            foreach (var day in data)
-            {
-                format.Add(new ExcelModel(day.Day.ToString("dd. MM. yyyy"),
-                    day.ShiftStart.ToString("HH:mm"),
-                    day.ShiftEnd.ToString("HH:mm"),
-                    day.Hours.TotalHours,
-                    day.ShiftType));
-            }
+            var format = data.Select(day => new ExcelModel(day.Day.ToString("dd. MM. yyyy"),
+                    day.ShiftStart.ToString("HH:mm"), day.ShiftEnd.ToString("HH:mm"), day.Hours.TotalHours,
+                    day.ShiftType))
+                .ToList();
 
             format.Add(new ExcelModel(shiftDayHours, string.Empty, shiftNightHours, null, shiftTotalHours));
             return format;
@@ -117,9 +112,7 @@ namespace PayCheckCalculator.Resources.Functions
 
         public List<DayModel> GetData(int year, int month)
         {
-            var list = new List<DayModel>();
-            foreach (var day in GetDates(year, month)) list.Add(SetDay(new DayModel(day)));
-            return list;
+            return GetDates(year, month).Select(day => SetDay(new DayModel(day))).ToList();
         }
 
         private List<DateTime> GetDates(int year, int month)
@@ -136,8 +129,15 @@ namespace PayCheckCalculator.Resources.Functions
             var time = day.Day;
             for (var i = 0; i < 48; i++)
             {
-                if (i == 7) day.ShiftStart = time;
-                else if (i == 17) day.ShiftEnd = time;
+                switch (i)
+                {
+                    case 7:
+                        day.ShiftStart = time;
+                        break;
+                    case 17:
+                        day.ShiftEnd = time;
+                        break;
+                }
 
                 for (var j = 0; j < 4; j++)
                 {
