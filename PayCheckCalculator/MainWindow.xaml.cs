@@ -18,8 +18,8 @@ namespace PayCheckCalculator
         public MainWindow()
         {
             InitializeComponent();
-            ShiftDayWageLabel.Content = $"{AppLocalization.HourlyWage} - {AppLocalization.ShiftDay}";
-            ShiftNightWageLabel.Content = $"{AppLocalization.HourlyWage} - {AppLocalization.ShiftNight}";
+            // ShiftDayWageLabel.Content = $"{AppLocalization.HourlyWage} - {AppLocalization.ShiftDay}";
+            // ShiftNightWageLabel.Content = $"{AppLocalization.HourlyWage} - {AppLocalization.ShiftNight}";
 
             var currentYear = int.Parse(DateTime.Now.Year.ToString());
 
@@ -97,9 +97,9 @@ namespace PayCheckCalculator
 
         private async void CalculateButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ShiftDay.Content = null;
-            ShiftNight.Content = null;
-            ShiftTotal.Content = null;
+            // ShiftDay.Content = null;
+            // ShiftNight.Content = null;
+            // ShiftTotal.Content = null;
             float dayWage, nightWage;
             TimeSpan shiftDay = new(), shiftNight = new();
 
@@ -134,14 +134,13 @@ namespace PayCheckCalculator
             dayWage = (float) shiftDay.TotalHours * dayWage;
             nightWage = (float) shiftNight.TotalHours * nightWage;
             var total = dayWage + nightWage;
-            ShiftDay.Content =
-                $"{AppLocalization.ShiftDay}: {shiftDay.TotalHours} {AppLocalization.Hours} -> {dayWage} $";
-            ShiftNight.Content =
-                $"{AppLocalization.ShiftNight}: {shiftNight.TotalHours} {AppLocalization.Hours} -> {nightWage} $";
-            ShiftTotal.Content =
-                $"{AppLocalization.Total}: {shiftDay.TotalHours + shiftNight.TotalHours} {AppLocalization.Hours} -> {total} $";
-            await _excel.SaveExcelFileNoCopy(_data, $"{MonthOptions.Text}_{YearOptions.Text}",
-                ShiftDay.Content.ToString(), ShiftNight.Content.ToString(), ShiftTotal.Content.ToString());
+
+            DayHoursLabel.Content = $"{shiftDay.TotalHours} {AppLocalization.Hours}";
+            DayWageLabel.Content = $"{dayWage} Kč";
+            NightHoursLabel.Content = $"{shiftNight.TotalHours} {AppLocalization.Hours}";
+            NightWageLabel.Content = $"{nightWage} Kč";
+            TotalHoursLabel.Content = $"{shiftDay.TotalHours + shiftNight.TotalHours} {AppLocalization.Hours}";
+            TotalWageLabel.Content = $"{dayWage + nightWage} Kč";
         }
 
         private async void LoadButton_OnClick(object sender, RoutedEventArgs e)
