@@ -44,13 +44,11 @@ namespace PayCheckCalculator
 
         private void LoadData()
         {
-            if (YearOptions.SelectedItem.ToString() != null && MonthOptions.SelectedItem.ToString() != null)
-            {
-                var year = int.Parse(YearOptions.Text);
-                var month = MonthOptions.SelectedIndex + 1;
-                _data = _excel.GetData(year, month);
-                DayOfTheMonthList.ItemsSource = _data;
-            }
+            if (YearOptions.SelectedItem.ToString() == null || MonthOptions.SelectedItem.ToString() == null) return;
+            var year = int.Parse(YearOptions.SelectedItem.ToString() ?? "0");
+            var month = MonthOptions.SelectedIndex + 1;
+            _data = _excel.GetData(year, month);
+            DayOfTheMonthList.ItemsSource = _data;
         }
 
         private void OptionsBegin_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
