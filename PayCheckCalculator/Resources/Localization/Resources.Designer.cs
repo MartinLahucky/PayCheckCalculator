@@ -310,6 +310,15 @@ namespace PayCheckCalculator.Resources.Localization {
             get {
                 return ResourceManager.GetString("FreeDay", resourceCulture);
             }
+        }        
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PayCheckCalculator.
+        /// </summary>
+        public static string PayCheckCalculator {
+            get {
+                return ResourceManager.GetString("PayCheckCalculator", resourceCulture);
+            }
         }
     }
 }

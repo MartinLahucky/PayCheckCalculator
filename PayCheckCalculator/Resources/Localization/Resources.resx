@@ -102,4 +102,7 @@
     <data name="FreeDay" xml:space="preserve">
         <value>Holiday</value>
     </data>
+    <data name="PayCheckCalculator" xml:space="preserve">
+        <value>Paycheck calculator</value>
+    </data>
 </root>

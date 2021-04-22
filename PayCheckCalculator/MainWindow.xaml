@@ -6,7 +6,10 @@
         xmlns:lang="clr-namespace:PayCheckCalculator.Resources.Localization"
         xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
         mc:Ignorable="d"
-        Background="#202020">
+        Background="#202020"
+        WindowState="Maximized"
+        Title="{x:Static lang:Resources.PayCheckCalculator}"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
