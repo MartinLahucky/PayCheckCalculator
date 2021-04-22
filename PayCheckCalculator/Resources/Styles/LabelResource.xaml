@@ -2,16 +2,26 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Style x:Key="InCellLabelStyle" TargetType="Label">
-        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontSize" Value="35"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        
+    </Style>
+    
+    <Style x:Key="InCellValuesLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="35"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
     </Style>
     
     <Style x:Key="SmallLabelStyle" TargetType="Label">
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -19,6 +29,7 @@
     </Style>
     
     <Style x:Key="HeaderLabelStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="White"/> 
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
     </Style>

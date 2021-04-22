@@ -5,13 +5,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:lang="clr-namespace:PayCheckCalculator.Resources.Localization"
         xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        Background="#202020">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.6*"/>
@@ -19,15 +21,24 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="0.6*"/>
         </Grid.RowDefinitions>
-
+        
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <Border Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource BorderStyle}">
+            <!-- TODO localization -->
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,0" Padding="0" Style="{DynamicResource BorderStyle}">
+                <Label Content="Paycheck Calculator" FontSize="25" Foreground="White" Margin="0" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            
+            <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource BorderStyle}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -57,7 +68,7 @@
                 </Grid>
             </Border>
             
-            <Border Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource BorderStyle}">
+            <Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource BorderStyle}">
                 <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -81,8 +92,8 @@
                     </Grid>
             </Border>
             
-            <Button Content="{x:Static lang:Resources.Calculate}" Grid.Row="0" Grid.Column="2" Padding="10"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="CalculateButton_OnClick" />
+            <Button Content="{x:Static lang:Resources.Calculate}" Grid.Row="1" Grid.Column="2" MinHeight="80" Margin="20" Padding="10" FontSize="20"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Click="CalculateButton_OnClick" />
             
         </Grid>
         
@@ -90,10 +101,10 @@
 
         
         <ListView x:Name="DayOfTheMonthList" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                  Padding="-5" SelectionMode="Extended" IsEnabled="True" Focusable="False" Background="#333333" Foreground="White" FontSize="20">
+                  Padding="-5" SelectionMode="Extended" HorizontalAlignment="Right"  IsEnabled="True" Focusable="False" Background="#67A8D6" Foreground="#101010" FontSize="20">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="150" Header="{x:Static lang:Resources.Day}"
+                    <GridViewColumn Width="200" Header="{x:Static lang:Resources.Day}"
                                     DisplayMemberBinding="{Binding Day, StringFormat={}{0: dd. MM. yyyy dddd}, ConverterCulture='{x:Static glob:CultureInfo.CurrentCulture}'}">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
@@ -104,7 +115,7 @@
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     
-                    <GridViewColumn Width="100"  Header="{x:Static lang:Resources.ShiftType}">
+                    <GridViewColumn Width="150"  Header="{x:Static lang:Resources.ShiftType}">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <Border Style="{DynamicResource HeaderBorderStyle}">
@@ -123,7 +134,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="70" Header="{x:Static lang:Resources.ShiftStart}">
+                    <GridViewColumn Width="120" Header="{x:Static lang:Resources.ShiftStart}">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <Border Style="{DynamicResource HeaderBorderStyle}">
@@ -142,7 +153,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="70">
+                    <GridViewColumn Width="120">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <Border Style="{DynamicResource HeaderBorderStyle}">
@@ -160,7 +171,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="70" DisplayMemberBinding="{Binding Hours}">
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Hours}">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <Border Style="{DynamicResource HeaderBorderStyle}">
@@ -183,7 +194,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="1.2*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -194,24 +206,34 @@
                 <!-- Row Legend -->
                 <Label Grid.Row="0" Grid.Column="0" Content="{x:Static lang:Resources.ShiftDay}" Style="{DynamicResource InCellLabelStyle}"/>
                 <Label Grid.Row="1" Grid.Column="0" Content="{x:Static lang:Resources.ShiftNight}" Style="{DynamicResource InCellLabelStyle}"/>
-                <Label Grid.Row="2" Grid.Column="0" Content="{x:Static lang:Resources.Total}" Style="{DynamicResource InCellLabelStyle}"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="{x:Static lang:Resources.Total}" Style="{DynamicResource InCellLabelStyle}"/>
                 
                 <!-- Data -->
-                <Label Grid.Row="0" Grid.Column="1" x:Name="DayHoursLabel"/>
-                <Label Grid.Row="0" Grid.Column="2" x:Name="DayWageLabel"/>
                 
-                <Label Grid.Row="1" Grid.Column="1" x:Name="NightHoursLabel"/>
-                <Label Grid.Row="1" Grid.Column="2" x:Name="NightWageLabel" />
-                
-                <Label Grid.Row="2" Grid.Column="1" x:Name="TotalHoursLabel"/>
-                <Label Grid.Row="2" Grid.Column="2" x:Name="TotalWageLabel"/>
-
+                <Border Grid.Row="0" Grid.Column="1" CornerRadius="20,1,1,20" Style="{DynamicResource TableCellBorderStyle}">
+                    <Label x:Name="DayHoursLabel" Style="{DynamicResource InCellValuesLabelStyle}"/>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2" CornerRadius="1,20,20,1" Style="{DynamicResource TableCellBorderStyle}">
+                    <Label x:Name="DayWageLabel" Style="{DynamicResource InCellValuesLabelStyle}"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1" CornerRadius="20,1,1,20" Style="{DynamicResource TableCellBorderStyle}">
+                    <Label x:Name="NightHoursLabel" Style="{DynamicResource InCellValuesLabelStyle}"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2" CornerRadius="1,20,20,1" Style="{DynamicResource TableCellBorderStyle}">
+                    <Label x:Name="NightWageLabel"  Style="{DynamicResource InCellValuesLabelStyle}"/>
+                </Border>
+                <Border Grid.Row="3" Grid.Column="1" CornerRadius="20,1,1,20" Style="{DynamicResource TableCellBorderStyle}">
+                    <Label x:Name="TotalHoursLabel" Style="{DynamicResource InCellValuesLabelStyle}"/>
+                </Border>
+                <Border Grid.Row="3" Grid.Column="2" CornerRadius="1,20,20,1" Style="{DynamicResource TableCellBorderStyle}">
+                    <Label x:Name="TotalWageLabel" Style="{DynamicResource InCellValuesLabelStyle}"/>
+                </Border>
             </Grid>
         </Border>
         
         <Button Content="{x:Static lang:Resources.LoadData}" Grid.Row="1" Grid.Column="0" Margin="-300, 0,0,0"
                 Padding="10"
-                HorizontalAlignment="Center" VerticalAlignment="Center" Click="LoadButton_OnClick" Visibility="Hidden"/>
+                HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="LoadButton_OnClick" Visibility="Hidden"/>
         
     </Grid>
 </Window>
