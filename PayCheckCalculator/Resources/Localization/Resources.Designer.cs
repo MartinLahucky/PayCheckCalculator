@@ -320,5 +320,41 @@ namespace PayCheckCalculator.Resources.Localization {
                 return ResourceManager.GetString("PayCheckCalculator", resourceCulture);
             }
         }
+                
+        /// <summary>
+        ///   Looks up a localized string similar to DayMenu.
+        /// </summary>
+        public static string DayMenu {
+            get {
+                return ResourceManager.GetString("DayMenu", resourceCulture);
+            }
+        }
+                        
+        /// <summary>
+        ///   Looks up a localized string similar to NightMenu.
+        /// </summary>
+        public static string NightMenu {
+            get {
+                return ResourceManager.GetString("NightMenu", resourceCulture);
+            }
+        }
+                                
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wage.
+        /// </summary>
+        public static string Wage {
+            get {
+                return ResourceManager.GetString("Wage", resourceCulture);
+            }
+        }
     }
 }

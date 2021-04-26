@@ -98,4 +98,16 @@
     <data name="PayCheckCalculator" xml:space="preserve">
         <value>Výplatní kalkulačka</value>
     </data>
+    <data name="Date" xml:space="preserve">
+        <value>Datum</value>
+    </data>
+    <data name="NightMenu" xml:space="preserve">
+        <value>Noční</value>
+    </data>
+    <data name="DayMenu" xml:space="preserve">
+        <value>Denní</value>
+    </data>
+    <data name="Wage" xml:space="preserve">
+        <value>Mzda</value>
+    </data>
 </root>

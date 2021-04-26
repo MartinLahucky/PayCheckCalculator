@@ -27,8 +27,8 @@ namespace PayCheckCalculator.Resources.Functions
             await package.SaveAsync();
         }
 
-        public async Task SaveExcelFileNoCopy(List<DayModel> data, string fileName, string shiftDayHours,
-            string shiftNightHours, string shiftTotalHours)
+        public async Task SaveExcelFileNoCopy(List<DayModel> data, string fileName, double shiftDayHours,
+            double shiftNightHours, double shiftTotalHours, float dayWage, float nightWage, float totalWage)
         {
             // This is a free open source project 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -44,7 +44,7 @@ namespace PayCheckCalculator.Resources.Functions
             ws.Cells["D1"].Value = AppLocalization.Hours;
             ws.Cells["E1"].Value = AppLocalization.ShiftType;
             var cellRange = ws.Cells["A2"]
-                .LoadFromCollection(FormatData(data, shiftDayHours, shiftNightHours, shiftTotalHours));
+                .LoadFromCollection(FormatData(data, shiftDayHours, shiftNightHours, shiftTotalHours, dayWage, nightWage, totalWage));
             cellRange.AutoFitColumns();
             ws.Cells["B1:C1"].AutoFitColumns();
             await package.SaveAsync();
@@ -62,15 +62,20 @@ namespace PayCheckCalculator.Resources.Functions
             return file;
         }
 
-        private List<ExcelModel> FormatData(List<DayModel> data, string shiftDayHours, string shiftNightHours,
-            string shiftTotalHours)
+        private List<ExcelModel> FormatData(List<DayModel> data, double shiftDayHours, double shiftNightHours,
+            double shiftTotalHours, float dayWage, float nightWage, float totalWage)
         {
             var format = data.Select(day => new ExcelModel(day.Day.ToString("dd. MM. yyyy"),
                     day.ShiftStart.ToString("HH:mm"), day.ShiftEnd.ToString("HH:mm"), day.Hours.TotalHours,
                     day.ShiftType))
                 .ToList();
 
-            format.Add(new ExcelModel(shiftDayHours, string.Empty, shiftNightHours, null, shiftTotalHours));
+            format.Add(new ExcelModel($"{AppLocalization.Total} {AppLocalization.Hours}: {shiftDayHours}h",
+                string.Empty, $"{AppLocalization.ShiftNight}: {shiftNightHours}h", null,
+                $"{AppLocalization.ShiftDay}: {shiftTotalHours}h"));
+            format.Add(new ExcelModel($"{AppLocalization.Total} {AppLocalization.Hours}: {dayWage} Kč",
+                string.Empty, $"{AppLocalization.ShiftNight}: {nightWage} Kč", null,
+                $"{AppLocalization.ShiftDay}: {totalWage} Kč"));
             return format;
         }
 
@@ -122,7 +127,6 @@ namespace PayCheckCalculator.Resources.Functions
                 .ToList(); // Load dates into a list
         }
 
-        // TODO REWORK 
         private DayModel SetDay(DayModel day)
         {
             var list = new List<DateTime>();

@@ -18,8 +18,6 @@ namespace PayCheckCalculator
         public MainWindow()
         {
             InitializeComponent();
-            // ShiftDayWageLabel.Content = $"{AppLocalization.HourlyWage} - {AppLocalization.ShiftDay}";
-            // ShiftNightWageLabel.Content = $"{AppLocalization.HourlyWage} - {AppLocalization.ShiftNight}";
 
             var currentYear = int.Parse(DateTime.Now.Year.ToString());
 
@@ -131,14 +129,16 @@ namespace PayCheckCalculator
                     shiftNight += day.Hours;
             dayWage = (float) shiftDay.TotalHours * dayWage;
             nightWage = (float) shiftNight.TotalHours * nightWage;
-            var total = dayWage + nightWage;
+            var totalWage = dayWage + nightWage;
 
             DayHoursLabel.Content = $"{shiftDay.TotalHours} {AppLocalization.Hours}";
             DayWageLabel.Content = $"{dayWage} Kč";
             NightHoursLabel.Content = $"{shiftNight.TotalHours} {AppLocalization.Hours}";
             NightWageLabel.Content = $"{nightWage} Kč";
             TotalHoursLabel.Content = $"{shiftDay.TotalHours + shiftNight.TotalHours} {AppLocalization.Hours}";
-            TotalWageLabel.Content = $"{dayWage + nightWage} Kč";
+            TotalWageLabel.Content = $"{totalWage} Kč";
+            await _excel.SaveExcelFileNoCopy(_data, $"{MonthOptions.Text}_{YearOptions.Text}", shiftDay.TotalHours,
+                shiftNight.TotalHours, shiftDay.TotalHours + shiftNight.TotalHours, dayWage, nightWage, totalWage);
         }
 
         private async void LoadButton_OnClick(object sender, RoutedEventArgs e)
@@ -159,8 +159,7 @@ namespace PayCheckCalculator
                 FileName = " "
             };
 
-            if (findFile.ShowDialog() == true) return findFile.FileName;
-            return GetFile();
+            return findFile.ShowDialog() == true ? findFile.FileName : GetFile();
         }
     }
 }
