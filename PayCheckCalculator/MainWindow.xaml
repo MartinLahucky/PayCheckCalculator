@@ -47,7 +47,7 @@
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     
-                    <Label Grid.Row="0" Content="{x:Static lang:Resources.Date}" Style="{DynamicResource InCellLabelStyle}"/>
+                    <Label Grid.Row="0" FontSize="20" Content="{x:Static lang:Resources.Date}" Style="{DynamicResource InCellLabelStyle}"/>
                     
                     <StackPanel Grid.Row="1" Margin="10,0" Orientation="Horizontal" HorizontalAlignment="Center">
                         <ComboBox x:Name="YearOptions" SelectionChanged="LoadData" Style="{DynamicResource InCellComboBoxStyle}"/>
@@ -82,23 +82,22 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                     
-                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{x:Static lang:Resources.Wage}" Margin="-20" Style="{DynamicResource InCellLabelStyle}"/>
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" Content="{x:Static lang:Resources.Wage}" Margin="-20" Style="{DynamicResource InCellLabelStyle}"/>
                         <TextBox Grid.Row="1" Grid.Column="1" x:Name="ShiftDayWage" Tag="160" Style="{DynamicResource TextBoxStyle}"/>
                         <TextBox Grid.Row="2" Grid.Column="1" x:Name="ShiftNightWage" Tag="180" Style="{DynamicResource TextBoxStyle}"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static lang:Resources.DayMenu}" Style="{DynamicResource SmallLabelStyle}"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static lang:Resources.NightMenu}" Style="{DynamicResource SmallLabelStyle}"/>
+                        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="17" HorizontalContentAlignment="Left" Padding="0" Margin="-7,0,0,0" Content="{x:Static lang:Resources.DayMenu}" Style="{DynamicResource SmallLabelStyle}"/>
+                        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" FontSize="17" HorizontalContentAlignment="Left" Padding="0" Margin="-7,0,0,0" Content="{x:Static lang:Resources.NightMenu}" Style="{DynamicResource SmallLabelStyle}"/>
                     </Grid>
             </Border>
             
-            <Button Content="{x:Static lang:Resources.Calculate}" Grid.Row="1" Grid.Column="2" MinHeight="80" Margin="20" Padding="10" FontSize="20"
+            <Button Content="{x:Static lang:Resources.Calculate}" Grid.Row="1" Grid.Column="2" MinHeight="80" Margin="10" Padding="10" FontSize="15"
                     HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Click="CalculateButton_OnClick" />
-            
         </Grid>
         
         
 
         
-        <ListView x:Name="DayOfTheMonthList" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+        <ListView x:Name="DayOfTheMonthList" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3"
                   Padding="-5" SelectionMode="Extended" HorizontalAlignment="Right"  IsEnabled="True" Focusable="False" Background="#67A8D6" Foreground="#101010" FontSize="20">
             <ListView.View>
                 <GridView>
